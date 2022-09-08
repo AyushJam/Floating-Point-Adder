@@ -79,9 +79,7 @@ The rough flow of addition for the case of floating-point numbers has been prese
 
 ### Software emulation
 
-<p align="justify"> In the first part of the assignment, we try to “emulate” the working of a floating point adder hardware unit using C code. As you could guess, this would be sequential in nature, and would go through multiple stages described previously. This in some sense might represent how a processor would try to perform a floating point add operation in the absence of a dedicated floating point unit. In the next part of the assignment, we would try to build a hardware unit that functions as a floating point adder using Verilog HDL. </p>
- 
-<p align="justify"> Further, the scientific notation - like representation makes floating point arithmetic non-trivial. Addition of two numbers involves multiple steps, if done on a regular ALU, would require multiple clock cycles before a single floating point result can be finally represented. As a result, designing efficient floating point hardware units that can achieve better throughput and/ or lower latency has been an area with active interest, with several possible design choices. </p>
+<p align="justify"> In the first part of the assignment, we try to “emulate” the working of a floating point adder hardware unit using C code. As you could guess, this would be sequential in nature, and would go through multiple stages described previously. This in some sense might represent how a processor would try to perform a floating point add operation in the absence of a dedicated floating point unit. On an integer ALU, this corresponds to multiple clock cycles before a single floating point result can be finally represented. As a result, designing efficient floating point hardware units that can achieve better throughput and/ or lower latency has been an area with active interest, with several possible design choices. In the next part of the assignment, we would try to build a hardware unit that functions as a floating point adder using Verilog HDL.</p>
 
 ### Reading 'floats' without 'floats' in C?
 
