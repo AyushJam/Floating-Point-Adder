@@ -2,7 +2,7 @@
 Implement the operations involved during Floating Point Addition in C 
 
 ## Goals 
-To design the floating point adder in C **(without using the float data type)** to understand the operations involved. 
+To design the floating point adder in C (without using the float data type) to understand the operations involved. 
 
 ## Given
 <p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
@@ -53,6 +53,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 <img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png"> 
 
+
 ![e3](./figs/4.svg)
 
 Further, certain combinations form a special case and are reserved for the following functions: 
@@ -65,6 +66,9 @@ Further, certain combinations form a special case and are reserved for the follo
 For this assignment, the case of denormal numbers need not be handled. However, the case of e = 255 is to be considered.
 
 ### Floating-Point Addition 
+<p align="center">
+<img width="350" alt="chart" src="https://user-images.githubusercontent.com/63749705/189225579-1233a1bf-105a-4625-8930-e09552671413.png">
+  </p>
 
 
 ## More about the assignment
