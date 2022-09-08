@@ -2,12 +2,8 @@
 Implement the operations involved during Floating Point Addition in C 
 
 ## Goals 
+
 To design the floating point adder in C (without using the float data type) to understand the operations involved. 
-
-## Given
-<p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
-
-<p align ="justify">  As a rule of thumb, float variables should not be used anywhere in the C code, except in reading the test cases, as specified in the template. The code should be able to deal with +/- inf and NaNs as inputs. Denorms are beyond the scope of this assignment and need not be dealt with. Rounding the results is not required, and is optional - the test setup provided would account for this variation. </p>
 
 ## Details of the assignment
 
@@ -19,6 +15,7 @@ the radix point can 'float', which means it can be placed anywhere relative to t
 in the fixed-point represntation are placed uniformly while in the case of floating-point representation the succesive numbers are not uniformly spaced. </p>
 
 #### Fixed-point Representation 
+
 <p align = "justify"> 
 Consider a 4-bit number with the radix point fixed after two bits. Hence any number in the representation is of the form: </p>
 
@@ -71,6 +68,12 @@ The rough flow of addition for the case of floating-point numbers has been prese
 <img width="350" alt="chart" src="https://user-images.githubusercontent.com/63749705/189225579-1233a1bf-105a-4625-8930-e09552671413.png">
   </p>
 
+
+## Given
+
+<p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
+
+<p align ="justify">  As a rule of thumb, float variables should not be used anywhere in the C code, except in reading the test cases, as specified in the template. The code should be able to deal with +/- inf and NaNs as inputs. Denorms are beyond the scope of this assignment and need not be dealt with. Rounding the results is not required, and is optional - the test setup provided would account for this variation. </p>
 
 ## More about the assignment
 
