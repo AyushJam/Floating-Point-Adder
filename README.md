@@ -35,7 +35,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 ![e3](./figs/3.svg)
 
-<p align = "justify">  Hence, in this representation 0000 means decimal 0.0625 and 1111 means 12. Using this representaion, 4-bits covers a wider range of numbers. However, it is important to note the spacing between succesive numbers as illustrated in the figure. Altough, floating-point provides a wider range this comes with a larger spacing between large numbers and smaller spacing between small numbers.   </p>
+<p align = "justify">  Hence, in this representation 0000 means decimal 0.0625 and 1111 means 12. Using this representaion, 4-bits covers a wider range of numbers. However, it is important to note the spacing between succesive numbers as illustrated in the figure. Although, floating-point provides a wider range this comes with a larger spacing between large numbers and smaller spacing between small numbers.   </p>
 
 
 <p align="center">
