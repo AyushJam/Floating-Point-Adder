@@ -11,7 +11,7 @@ To design the floating point adder in C (without using the float data type) to u
 
 <p align = "justify"> The most commonly used number representations in computer arthimetic are the fixed and the floating-point representations. The
 name fixed-point is used because of the fact that, this invloves a fixed number of digits after the radix point. While for the case of floating point 
-the radix point can 'float', which means it can be placed anywhere relative to the significant digits of the number. Therefore, the succesive numbers
+the radix point can "float", which means it can be placed anywhere relative to the significant digits of the number. Therefore, the succesive numbers
 in the fixed-point represntation are placed uniformly while in the case of floating-point representation the succesive numbers are not uniformly spaced. </p>
 
 #### Fixed-point Representation 
@@ -71,7 +71,7 @@ The rough flow of addition for the case of floating-point numbers has been prese
 
 ## Given
 
-<p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
+<p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to "emulate" the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
 
 <p align ="justify">  As a rule of thumb, float variables should not be used anywhere in the C code, except in reading the test cases, as specified in the template. The code should be able to deal with +/- inf and NaNs as inputs. Denorms are beyond the scope of this assignment and need not be dealt with. Rounding the results is not required, and is optional - the test setup provided would account for this variation. </p>
 
@@ -81,7 +81,7 @@ The rough flow of addition for the case of floating-point numbers has been prese
 
 <p align="justify"> In the first part of the assignment, we try to “emulate” the working of a floating point adder hardware unit using C code. As you could guess, this would be sequential in nature, and would go through multiple stages described previously. This in some sense might represent how a processor would try to perform a floating point add operation in the absence of a dedicated floating point unit. On an integer ALU, this corresponds to multiple clock cycles before a single floating point result can be finally represented. As a result, designing efficient floating point hardware units that can achieve better throughput and/ or lower latency has been an area with active interest, with several possible design choices. In the next part of the assignment, we would try to build a hardware unit that functions as a floating point adder using Verilog HDL.</p>
 
-### Reading 'floats' without 'floats' in C?
+### Reading "floats" without "floats" in C?
 
 <p align="justify"> A float datatype is a 32-bit datatype that follows the IEEE 754 standard. However, in the memory, any 32-bit data looks the same - the difference only lies in how it is interpreted. In this assignment, we initially store the testcases into memory as float datatype - this results in the number being stored in memory as per the IEEE 754 format. Once that is done, we read back from the same memory location in the form of an unsigned integer though another pointer - this ensures that we can now get the exact word (32-bits) representation of the floating-point number and we can use the same to perform the computations. The part of the code that deals with this is as shown below:
   
