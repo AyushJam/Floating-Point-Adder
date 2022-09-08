@@ -2,12 +2,12 @@
 Implement the operations involved during Floating Point Addition in C 
 
 ## Goals 
-To design the adder in C **(without using the float data type)** to understand the operations involved. 
+To design the floating point adder in C **(without using the float data type)** to understand the operations involved. 
 
 ## Given
-<p align ="justify"> You have been provided the code to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
+<p align ="justify"> You have been provided the code template to test the functional correctness. Fill in the code corresponding to fpAdd function in the C file, that implements the floating point adder. You are required to 'emulate' the working of the floating point adder. This is not a test of functional correctness - that could as well be done by assigning float c = a + b. By the end of this assignment you should be able to clearly identify the different stages involved in the process, and emulate those step-by-step. </p> 
 
-<p align ="justify">  As a rule of thumb, float variables should not be used anywhere in the C code, except in reading the test cases, as specified in the template. The code should be able to deal with $\infty$ and NaNs as inputs. Denorms are beyond the scope of this assignment and need not be dealt with. Rounding the results is not required, and is optional. The test setup would not be sensitive to the units last place of the result. </p>
+<p align ="justify">  As a rule of thumb, float variables should not be used anywhere in the C code, except in reading the test cases, as specified in the template. The code should be able to deal with +/- inf and NaNs as inputs. Denorms are beyond the scope of this assignment and need not be dealt with. Rounding the results is not required, and is optional - the test setup provided would account for this variation. </p>
 
 ## Details of the assignment
 
