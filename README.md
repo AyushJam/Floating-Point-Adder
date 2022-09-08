@@ -22,7 +22,10 @@ in the fixed-point represntation are placed uniformly while in the case of float
 <p align = "justify"> 
 Consider a 4-bit number with the radix point fixed after two bits. Hence any number in the representation is of the form: </p>
 
-(img-placeholder)
+
+
+![Sequential Multiplier](./figs/1.svg)
+
 
 <p align = "justify">  The given representation can span the range of numbers from 0 - 3.75, with a separation of 0.25 between succesive numbers. However, if we still want to represent something as small as 0.0625 and something as large as 12, still using 4-bits we need an alternate
   representation. Hence, the following floating point representation, tries to solve the purpose to represent a wider range of numbers. </p>
