@@ -32,19 +32,19 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
   
  #### Floating-point Representation 
  
-<p align = "justify">  We use the same 4-bits in this representation, however, something similar to the scientifc notation of decimal numbers is followed to represent the numbers. For say, the first bit represents the mantissa (m) and the remaining bits represent the exponent (e). Then in this notation the a number is represented as: </p>
+<p align = "justify">  We use the same 4-bits in this representation, however, something similar to the scientifc notation of decimal numbers is followed to represent the numbers. For say, the first bit represents the mantissa (m) and the remaining bits represent the exponent (e). Then in this notation the number is represented as: </p>
 
 ![e2](./figs/2.svg)
 
 ![e3](./figs/3.svg)
 
-<p align = "justify">  Hence, in this representation 0000 means decimal 0.0625 and 1111 means 12. Using this representaion, 4-bits covers a wider range of numbers. However, it is important to note the spacing between succesive numbers in this representation as illustrated in the figure. Altough, floating-point provides a wider range this comes with a larger spacing between large numbers and smaller spacing between small numbers.   </p>
+<p align = "justify">  Hence, in this representation 0000 means decimal 0.0625 and 1111 means 12. Using this representaion, 4-bits covers a wider range of numbers. However, it is important to note the spacing between succesive numbers as illustrated in the figure. Altough, floating-point provides a wider range this comes with a larger spacing between large numbers and smaller spacing between small numbers.   </p>
 
 
 <p align="center">
 <img width="350" alt="Screenshot 2022-09-09 at 12 17 38 AM" src="https://user-images.githubusercontent.com/63749705/189201948-d110f1a1-cc27-4cae-a4e4-29ff68d7abe1.png"> </p>
 
-<p align = "justify"> Further, this also comes requires additional arthimetic circuitry while the hardware for fixed-point is similar to that of integer arthimetic. Based on the application and range of data being accessed, the appropriate representation can be adopted since either of them have their own benefits. In most of the scientific applications today, where the data goes to as large as 1e40 and as low as 1e-40 the IEEE 754 floating point standard is adopted. </p>
+<p align = "justify"> Further, this also requires additional arthimetic circuitry while the hardware for fixed-point is similar to that of integer arthimetic. Based on the application and range of data being accessed, the appropriate representation can be adopted since either of them have their own benefits. In most of the scientific applications today, where the data goes to as large as 1e40 and as low as 1e-40 the IEEE 754 floating point standard is adopted. </p>
 
 ### IEEE 754 Standard for Floating-Point Arithmetic 
 
@@ -66,6 +66,7 @@ Further, certain combinations form a special case and are reserved for the follo
 For this assignment, the case of denormal numbers need not be handled. However, the case of e = 255 is to be considered.
 
 ### Floating-Point Addition 
+The rough flow of addition for the case of floating-point numbers has been presented: 
 <p align="center">
 <img width="350" alt="chart" src="https://user-images.githubusercontent.com/63749705/189225579-1233a1bf-105a-4625-8930-e09552671413.png">
   </p>
