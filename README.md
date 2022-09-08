@@ -24,7 +24,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 
 
-![Sequential Multiplier](./figs/1.svg)
+![e1](./figs/1.svg)
 
 
 <p align = "justify">  The given representation can span the range of numbers from 0 - 3.75, with a separation of 0.25 between succesive numbers. However, if we still want to represent something as small as 0.0625 and something as large as 12, still using 4-bits we need an alternate
@@ -34,9 +34,12 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
  
 <p align = "justify">  We use the same 4-bits in this representation, however, something similar to the scientifc notation of decimal numbers is followed to represent the numbers. For say, the first bit represents the mantissa (m) and the remaining bits represent the exponent (e). Then in this notation the a number is represented as: </p>
 
-(img-placeholder)
+![e2](./figs/2.svg)
+
+![e3](./figs/3.svg)
 
 <p align = "justify">  Hence, in this representation 0000 means decimal 0.0625 and 1111 means 12. Using this representaion, 4-bits covers a wider range of numbers. However, it is important to note the spacing between succesive numbers in this representation as illustrated in the figure. Altough, floating-point provides a wider range this comes with a larger spacing between large numbers and smaller spacing between small numbers.   </p>
+
 
 <p align="center">
 <img width="350" alt="Screenshot 2022-09-09 at 12 17 38 AM" src="https://user-images.githubusercontent.com/63749705/189201948-d110f1a1-cc27-4cae-a4e4-29ff68d7abe1.png"> </p>
@@ -47,10 +50,10 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 <p align="justify"> A single-precision 32-bit floating point number is represented as illustrated in this standard and the same is used for the rest of the implementations. The MSB represents the sign bit with 0 being a positive number, while 1 means a negative number. The next 8-bits represent the exponent with a bias. To get the actual exponent, the value represented here is to be subtracted by 127. Since this is a binary representation, the base is 2. The last 23-bits represent the normalised mantissa (fraction). An implicit 1 is placed, followed by a decimal point and the 23-bit normalised mantissa to get the entire 24-bit mantissa. </p>
 
-<p align="center">
-<img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png"> </p>
 
-(img-placeholder)
+<img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png"> 
+
+![e3](./figs/4.svg)
 
 Further, certain combinations form a special case and are reserved for the following functions: 
 
@@ -90,7 +93,7 @@ unsigned int int_b = *(unsigned int *)&b;
 The following references could be useful, if you want to explore further about number representations: 
 
 * ![IEEE 754, Wikipedia](https://en.wikipedia.org/wiki/IEEE_754)
-* ![Fixed-Point vs. Floating-Point Digital Signal Processing, Analog Devices](https://www.analog.com/en/technical-articles/fixedpoint-vs-floatingpoint-dsp.html))
+* ![Fixed-Point vs. Floating-Point Digital Signal Processing, Analog Devices](https://www.analog.com/en/technical-articles/fixedpoint-vs-floatingpoint-dsp.html)
 * Section 3.5, Floating Point, Computer Organisation and Design, Patterson and Hennessy
 
     
