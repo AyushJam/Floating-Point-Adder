@@ -48,8 +48,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 <p align="justify"> A single-precision 32-bit floating point number is represented as illustrated in this standard and the same is used for the rest of the implementations. The MSB represents the sign bit with 0 being a positive number, while 1 means a negative number. The next 8-bits represent the exponent with a bias. To get the actual exponent, the value represented here is to be subtracted by 127. Since this is a binary representation, the base is 2. The last 23-bits represent the normalized mantissa (fraction). An implicit 1 is placed, followed by a decimal point and the 23-bit normalized mantissa to get the entire 24-bit mantissa. </p>
 
 
-<img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png"> 
-<sub> src: wikipedia </src>
+<img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png">  <sub> src: wikipedia </src>
 
 
 ![e3](./figs/4.svg)
