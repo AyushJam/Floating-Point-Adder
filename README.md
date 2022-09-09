@@ -39,7 +39,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 
 <p align="center">
-<img width="350" alt="Screenshot 2022-09-09 at 12 17 38 AM" src="https://user-images.githubusercontent.com/63749705/189201948-d110f1a1-cc27-4cae-a4e4-29ff68d7abe1.png"> </p>
+<img width="350" alt="graph" src="https://user-images.githubusercontent.com/63749705/189201948-d110f1a1-cc27-4cae-a4e4-29ff68d7abe1.png"> </p>
 
 <p align = "justify"> Further, this also requires additional arithmetic circuitry while the hardware for fixed-point is similar to that of integer arithmetic. Based on the application and range of data being accessed, the appropriate representation can be adopted since either of them have their own benefits. In most of the scientific applications today, where the data goes to as large as 1e40 and as low as 1e-40 the IEEE 754 floating point standard is adopted. </p>
 
@@ -49,6 +49,7 @@ Consider a 4-bit number with the radix point fixed after two bits. Hence any num
 
 
 <img width="600" alt="float" src="https://user-images.githubusercontent.com/63749705/189207724-a014a41b-0caa-4852-ac4d-f0f7a9690bc6.png"> 
+<sub> src: wikipedia </src>
 
 
 ![e3](./figs/4.svg)
