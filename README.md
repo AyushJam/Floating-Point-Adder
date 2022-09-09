@@ -3,7 +3,7 @@ Implement the operations involved during Floating Point Addition in Verilog
 
 ## Goals 
 
-Implement a floating point adder in Verilog to take 2 32-b values as input, interpret them as IEEE-754 floating point values, and add them.
+Implement a floating point adder in Verilog to take 2, 32-b values as input, interpret them as IEEE-754 floating point values, and add them.
 
 ## Details of the assignment
 
@@ -66,7 +66,7 @@ For this assignment, the case of denormal numbers need not be handled. However, 
 The rough flow of addition for the case of floating-point numbers has been presented: 
 <p align="center">
 <img width="350" alt="chart" src="https://user-images.githubusercontent.com/63749705/189225579-1233a1bf-105a-4625-8930-e09552671413.png">
-  </p>
+</p>
 
 
 ## Given
@@ -91,7 +91,7 @@ The C code given here is an *emulation* of the expected behaviour, and is used a
 
 ### Reading "floats" without "floats" in C?
 
-<p align="justify"> A float datatype is a 32-bit datatype that follows the IEEE 754 standard. However, in the memory, any 32-bit data looks the same - the difference only lies in how it is interpreted. In this assignment, we initially store the testcases into memory as float datatype - this results in the number being stored in memory as per the IEEE 754 format. Once that is done, we read back from the same memory location in the form of an unsigned integer though another pointer. This ensures that we can now get the exact word (32-bits) representation of the floating-point number and we can use the same to perform the computations. The part of the code that deals with this is as shown below:
+<p align="justify"> A float datatype is a 32-bit datatype that follows the IEEE 754 standard. However, in the memory, any 32-bit data looks the same - the difference only lies in how it is interpreted. In this assignment, we initially store the testcases into memory as float datatype - this results in the number being stored in memory as per the IEEE 754 format. Once that is done, we read back from the same memory location in the form of an unsigned integer though another pointer. This ensures that we can now get the exact word (32-bits) representation of the floating-point number and we can use the same to perform the computations. The part of the code that deals with this is as shown below: </p>
   
 ```
 unsigned int int_a = *(unsigned int *)&a;
@@ -100,7 +100,7 @@ unsigned int int_b = *(unsigned int *)&b;
 
 ## Problem Requirements
 
-You can clone or download this repository.  Obviously getting some familiarity with git is strongly recommended, but is not going to be enforced for this course.  On the other hand, if there is any problem in terms of suspicion of copying, if you can show that you have a git repository that has been getting regular updates that align with your design, then that will be taken into consideration as possible proof that you wrote the code yourself.  Otherwise copying will be taken as a violation of institute disciplinary norms and may attract appropriate punishment.
+<p align="justify"> You can clone or download this repository.  Obviously getting some familiarity with git is strongly recommended, but is not going to be enforced for this course.  On the other hand, if there is any problem in terms of suspicion of copying, if you can show that you have a git repository that has been getting regular updates that align with your design, then that will be taken into consideration as possible proof that you wrote the code yourself.  Otherwise copying will be taken as a violation of institute disciplinary norms and may attract appropriate punishment. </p>
 
 Once downloaded, you should be able to compile and run the C code using the following commands (assuming you are typing them at a Shell prompt - indicated by `$`).
 
@@ -109,11 +109,11 @@ $ make fpAdd   # to compile the C file
 $ ./fpAdd      # to run the C executable against all test cases in testcases.dat
 ```
 
-Additional commands for the Verilog tests will be added here shortly - please refresh the repository once these are announced.
+<p align="justify"> Additional commands for the Verilog tests will be added here shortly - please refresh the repository once these are announced. </p>
 
 ### Grading
 
-You need to first show (to your TA) a Verilog simulation of your code that passes the floating point add test cases.  Once this is done, you need to add VIO signals for each of the inputs (including the clock), synthesize, and demonstrate this functioning on the FPGA.
+<p align="justify"> You need to first show (to your TA) a Verilog simulation of your code that passes the floating point add test cases.  Once this is done, you need to add VIO signals for each of the inputs (including the clock), synthesize, and demonstrate this functioning on the FPGA. </p>
 
 ## References 
 
