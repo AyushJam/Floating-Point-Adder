@@ -105,11 +105,23 @@ unsigned int int_b = *(unsigned int *)&b;
 Once downloaded, you should be able to compile and run the C code using the following commands (assuming you are typing them at a Shell prompt - indicated by `$`).
 
 ```sh
-$ make fpAdd   # to compile the C file
-$ ./fpAdd      # to run the C executable against all test cases in testcases.dat
+$ make 
 ```
 
-<p align="justify"> Additional commands for the Verilog tests will be added here shortly - please refresh the repository once these are announced. </p>
+To understand why this happens, look at the file named `Makefile`.  This provides a set of rules for compiling and running the tests.  In particular, the first non-commented line (comments start with the `#` symbol) specifies `all: vtest`.  This basically means that if you just type the command `make`, it will try to execute all commands required to update this target.
+
+Now `all` depends on `vtest` (that is what the `:` syntax indicates).  So how do we satisfy the `vtest` target?  That in turn depends on `ctest` and `fpadd_tb`.  So let's first satisfy `ctest`, which in turn depends on `fpAdd`, which in turn depends on `fpAdd.c`.  Finally we have something we know how to run - we can compile `fpAdd.c` to generate `fpAdd`.  Then recursively go back up the tree and all conditions can be satisfied.
+
+If you didn't understand any of the above, just move on - it is not essential, but it is *very strongly recommended* that you learn more about it if you are interested in this field.
+
+So anyway, what happens is the following:
+
+1. `fpAdd.c` is compiled to generate `fpAdd`.
+2. `fpAdd` is run and shows that all the tests pass.  It also generates the file `vtest.dat`
+3. The `iverilog` command is run to generate the executable `fpadd_tb` by compiling the verilog test bench as well as the verilog `fpadd` module (which you need to write of course).
+4. The `fpadd_tb` command is run to try and satisfy the Verilog tests.  As things stand, it will report a failure since the existing template module does not have any code.
+
+So now it is up to you to fill in the required functionality in `fpadd.v`, and get the Verilog tests to pass.
 
 ### Grading
 
