@@ -29,8 +29,12 @@ module fpadd (
 	reg sum;
 	reg sign_a, sign_b;			// 1 bit
 	reg [7:0] exp_a, exp_b;		// 8 bits
-	reg [23:0] mant_a, mant_b;	
-	// 23 bits + 1 bit for the one of 1.xx
+	reg [24:0] mant_a, mant_b;	
+	// 23 bits + 1 bit for the one of 1.xx + 1 for sign extension
+	reg [7:0] ediff;
+	reg sign_r;
+	reg [7:0] exp_r;
+	reg [24:0] mant_r;
 	
 	always @(posedge clk) begin
 		if (start) begin 
@@ -41,8 +45,8 @@ module fpadd (
 			sign_b 	<= 	b[31];
 			exp_a 	<= 	a[30:23];
 			exp_b 	<= 	b[30:23];
-			mant_a 	<= 	{1'b1, a[22:0]};   // add 1 to make 1.23 
-			mant_b 	<= 	{1'b1, b[22:0]};
+			mant_a 	<= 	{2'b01, a[22:0]};   // add 1 to make 1.23 
+			mant_b 	<= 	{2'b01, b[22:0]};
 			end
 		else if (reset) begin
 			done 	<= 	0;
@@ -51,8 +55,8 @@ module fpadd (
 			sign_b 	<= 	31'b0;
 			exp_a 	<= 	8'b0;
 			exp_b 	<= 	8'b0;
-			mant_a 	<= 	24'b0;
-			mant_b 	<= 	24'b0;
+			mant_a 	<= 	25'b0;
+			mant_b 	<= 	25'b0;
 			end
 		else if (!done)
 			// 2. Handle special cases
@@ -75,15 +79,32 @@ module fpadd (
 			else begin
 				// 3. Move on to actual computations
 				// 3.2 Convert mantissas to two's complement
-				//     mant_a is a 24 bit value.
+				//     mant_a was a 24 bit value.
 				//     Considering a possibility of overflow, 
 				//     extend sign bit to another bit 
 				if (sign_a) begin
 					mant_a <= -mant_a;
-				end
+					end
 				if (sign_b) begin
 					mant_b <= -mant_b;
-				end
+					end
+				
+				// 3.2 Equalize exponents
+				if (exp_a > exp_b) begin
+					ediff <= exp_a - exp_b;
+					exp_r <= exp_a;
+					mant_b <= mant_b >> ediff;
+					end
+				else if (exp_a < exp_b) begin
+					ediff <= exp_b - exp_a;
+					exp_r <= exp_b;
+					mant_a <= mant_a >> ediff;
+					end
+				else // they are equal
+					exp_r <= exp_a;
+				
+				// 3.3 Compute addition
+				
 				
 				end
 			
