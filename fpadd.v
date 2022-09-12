@@ -90,52 +90,52 @@ module fpadd (
 				//     Considering a possibility of overflow, 
 				//     extend sign bit to another bit 
 				if (sign_a) begin
-					mant_a <= -mant_a;
+					mant_a = -mant_a;
 					end
 				if (sign_b) begin
-					mant_b <= -mant_b;
+					mant_b = -mant_b;
 					end
 				
 				// 3.2 Equalize exponents
 				if (exp_a > exp_b) begin
-					ediff  <= exp_a - exp_b;
-					exp_r  <= exp_a;
-					mant_b <= mant_b >> ediff;
+					ediff  = exp_a - exp_b;
+					exp_r  = exp_a;
+					mant_b = mant_b >> ediff;
 					// variable shifter
 					// HARDWARE?
 					end
 				else if (exp_a < exp_b) begin
-					ediff 	<= exp_b - exp_a;
-					exp_r 	<= exp_b;
-					mant_a 	<= mant_a >> ediff;
+					ediff 	= exp_b - exp_a;
+					exp_r 	= exp_b;
+					mant_a 	= mant_a >> ediff;
 					end
 				else begin // they are equal
-					exp_r <= exp_a;
+					exp_r = exp_a;
 					end
 					
 				// 3.3 Compute addition
-				mant_r <= mant_a + mant_b;
+				mant_r = mant_a + mant_b;
 				// mant_r is 26 bits; to accomodate overflow
 				// 3.4 Sign of result 
 				if (mant_r[25]) begin
 					// MSB indicates sign
 					// negative
-					sign_r <= 1;
-					mant_r <= -mant_r;
+					sign_r = 1;
+					mant_r = -mant_r;
 					end
 				else begin
 					// postitive
-					sign_r <= 0;
+					sign_r = 0;
 					end 
 				
 				// 3.5 Normalize
 				// mant_r is now unsigned
-				b25 <= mant_r[25];
-				b24 <= mant_r[24];
+				b25 = mant_r[25];
+				b24 = mant_r[24];
 				
 				if (!mant_r) begin
 					// 3.5.1 numbers cancelled out
-					exp_r <= 0;
+					exp_r = 0;
 					end
 				else if ((!b25) && (b24)) begin
 					// 3.5.2 already normalized 
@@ -143,16 +143,16 @@ module fpadd (
 					end
 				else if (b25) begin
 					// 3.5.3 Overflow - renormalize
-					mant_r <= {1'b0, mant_r[25:1]};
-					exp_r  <= exp_r + 1'b1;
+					mant_r = {1'b0, mant_r[25:1]};
+					exp_r  = exp_r + 1'b1;
 					end
 				else begin
 					// 3.5.4 Search for leading one
 					// multiple clock cycles required
 					if (!b24) begin
-						mant_r	<= {mant_r[24:0], 1'b0}; 
-						exp_r	<= exp_r - 1'b1;
-						b24 	<= mant_r[24];
+						mant_r	= {mant_r[24:0], 1'b0}; 
+						exp_r	= exp_r - 1'b1;
+						b24 	= mant_r[24];
 						end
 					else begin
 						sum	<= {sign_r, exp_r, mant_r[22:0]};
