@@ -98,16 +98,16 @@ module fpadd (
 				
 				// 3.2 Equalize exponents
 				if (exp_a > exp_b) begin
-					ediff <= exp_a - exp_b;
-					exp_r <= exp_a;
+					ediff  <= exp_a - exp_b;
+					exp_r  <= exp_a;
 					mant_b <= mant_b >> ediff;
 					// variable shifter
 					// HARDWARE?
 					end
 				else if (exp_a < exp_b) begin
-					ediff <= exp_b - exp_a;
-					exp_r <= exp_b;
-					mant_a <= mant_a >> ediff;
+					ediff 	<= exp_b - exp_a;
+					exp_r 	<= exp_b;
+					mant_a 	<= mant_a >> ediff;
 					end
 				else begin // they are equal
 					exp_r <= exp_a;
@@ -150,9 +150,9 @@ module fpadd (
 					// 3.5.4 Search for leading one
 					// multiple clock cycles required
 					if (!b24) begin
-						mant_r <= {mant_r[24:0], 1'b0}; 
-						exp_r <= exp_r - 1'b1;
-						b24 <= mant_r[24];
+						mant_r	<= {mant_r[24:0], 1'b0}; 
+						exp_r	<= exp_r - 1'b1;
+						b24 	<= mant_r[24];
 						end
 					else begin
 						sum	<= {sign_r, exp_r, mant_r[22:0]};
