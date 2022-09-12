@@ -9,6 +9,12 @@
 			  as real numbers and adding them is an interesting 
 			  task by itself. The sum must be converted back to 
 			  the known format and stored as a 'float'. 
+
+Problems yet to be dealt with:
+1. Understand what non-blocking operator will do
+2. Hardware version of variable shifter
+3. Passing testbench cases
+4. Synthesis
 */
 
 
@@ -27,14 +33,15 @@ module fpadd (
 	
 	reg done;
 	reg sum;
-	reg sign_a, sign_b;			// 1 bit
+	reg sign_a, sign_b;		// 1 bit
 	reg [7:0] exp_a, exp_b;		// 8 bits
 	reg [24:0] mant_a, mant_b;	
 	// 23 bits + 1 bit for the one of 1.xx + 1 for sign extension
 	reg [7:0] ediff;
 	reg sign_r;
 	reg [7:0] exp_r;
-	reg [24:0] mant_r;
+	reg [25:0] mant_r;
+	reg b25, b24;
 	
 	always @(posedge clk) begin
 		if (start) begin 
@@ -68,11 +75,11 @@ module fpadd (
 				sum 	<= a;
 				done 	<= 1'b1;
 				end
-			else if (exp_a == 8'h0xFF) begin
+			else if (exp_a == 8'hFF) begin
 				sum 	<= a;	// NaN or Inf
 				done	<= 1'b1;
 				end
-			else if (exp_b == 8'h0xFF) begin
+			else if (exp_b == 8'hFF) begin
 				sum 	<= b;
 				done	<= 1'b1;
 				end
@@ -94,36 +101,65 @@ module fpadd (
 					ediff <= exp_a - exp_b;
 					exp_r <= exp_a;
 					mant_b <= mant_b >> ediff;
+					// variable shifter
+					// HARDWARE?
 					end
 				else if (exp_a < exp_b) begin
 					ediff <= exp_b - exp_a;
 					exp_r <= exp_b;
 					mant_a <= mant_a >> ediff;
 					end
-				else // they are equal
+				else begin // they are equal
 					exp_r <= exp_a;
-				
+					end
+					
 				// 3.3 Compute addition
+				mant_r <= mant_a + mant_b;
+				// mant_r is 26 bits; to accomodate overflow
+				// 3.4 Sign of result 
+				if (mant_r[25]) begin
+					// MSB indicates sign
+					// negative
+					sign_r <= 1;
+					mant_r <= -mant_r;
+					end
+				else begin
+					// postitive
+					sign_r <= 0;
+					end 
 				
+				// 3.5 Normalize
+				// mant_r is now unsigned
+				b25 <= mant_r[25];
+				b24 <= mant_r[24];
 				
+				if (!mant_r) begin
+					// 3.5.1 numbers cancelled out
+					exp_r <= 0;
+					end
+				else if ((!b25) && (b24)) begin
+					// 3.5.2 already normalized 
+					// no need to normalize
+					end
+				else if (b25) begin
+					// 3.5.3 Overflow - renormalize
+					mant_r <= {1'b0, mant_r[25:1]};
+					exp_r  <= exp_r + 1'b1;
+					end
+				else begin
+					// 3.5.4 Search for leading one
+					// multiple clock cycles required
+					if (!b24) begin
+						mant_r <= {mant_r[24:0], 1'b0}; 
+						exp_r <= exp_r - 1'b1;
+						b24 <= mant_r[24];
+						end
+					else begin
+						sum	<= {sign_r, exp_r, mant_r[22:0]};
+						done	<= 1'b1;
+						end
+						
 				end
-			
-				
-			 
-				
-			
-				
-			
+			end					
 	end
-	
-	
-	
-	
-	
-	// parsed data acquired.
-	
-	// 2. Handle special cases
-	//	  MUX implementation
-	
-
 endmodule
