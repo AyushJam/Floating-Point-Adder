@@ -41,7 +41,7 @@ localparam STATE_Initial = 3'd0,
 	   STATE_4 = 3'd4,
 	   STATE_5 = 3'd5,
 	   STATE_6 = 3'd6,
-	   STATE_7 = 3'd7;
+	   STATE_7_placeholder = 3'd7;
 	   // STATE_8 = 4'd8; 
 	   // tried to avoid another state to use just three bits for encoding	 
 
@@ -84,10 +84,11 @@ always @(*) begin
 				exp_b 	= 	8'b0;
 				mant_a 	= 	25'b0;
 				mant_b 	= 	25'b0;
-				NextState  = State_Initial;
+				NextState  = STATE_Initial;
 			end
 			else if (start) begin
 				// 1. Start parsing input data
+				$display ("a = %b", a);
 				done 	= 	0;
 				sum  	= 	32'b0;
 				sign_a 	= 	a[31];
@@ -102,22 +103,22 @@ always @(*) begin
 				if ((exp_a == 0) && (mant_a == 0)) begin
 					sum 	= b;  // a = 0
 					done 	= 1'b1;
-					NextState  = State_Initial;
+					NextState  = STATE_Initial;
 				end
 				else if ((exp_b == 0) && (mant_b == 0)) begin	
 					sum 	= a;  // b = 0
 					done 	= 1'b1;
-					NextState  = State_Initial;
+					NextState  = STATE_Initial;
 				end
 				else if (exp_a == 8'hFF) begin
 					sum 	= a;	// NaN or Inf
 					done	= 1'b1;
-					NextState  = State_Initial;
+					NextState  = STATE_Initial;
 				end
 				else if (exp_b == 8'hFF) begin
 					sum 	= b;
 					done	= 1'b1;
-					NextState  = State_Initial;
+					NextState  = STATE_Initial;
 				end
 				else begin
 					// 3. actual non-exceptional computation
@@ -219,6 +220,9 @@ always @(*) begin
 			// 4. Generate output
 			sum	= {sign_r, exp_r, mant_r[22:0]};
 			done	= 1'b1;
+			NextState = STATE_Initial;
+		end
+		STATE_7_placeholder: begin
 			NextState = STATE_Initial;
 		end
 	endcase				
