@@ -42,9 +42,8 @@ localparam STATE_Initial = 3'd0,
 	   STATE_5 = 3'd5,
 	   STATE_6 = 3'd6,
 	   STATE_7_placeholder = 3'd7;
-	   // STATE_8 = 4'd8; 
-	   // tried to avoid another state to use just three bits for encoding	 
-
+	   // excess case handled
+	   
 // State regs declaration 
 reg [2:0] CurrentState;
 reg [2:0] NextState;
@@ -52,8 +51,9 @@ reg [2:0] NextState;
 // Registers to parse the 32-bit data
 	reg sign_a, sign_b;		// 1 bit
 	reg [7:0] exp_a, exp_b;		// 8 bits
-	reg [24:0] mant_a, mant_b;	
+	reg signed [24:0] mant_a, mant_b;	
 	// 23 bits + 1 bit for the one of 1.xx + 1 for sign extension
+	// signed reg is used for the arithmetic shift operation later used. 
 	reg [7:0] ediff;
 	reg sign_r;
 	reg [7:0] exp_r;
@@ -139,9 +139,11 @@ always @(*) begin
 			// adjust mantissa sign, one bit used for sign extension
 			if (sign_a) begin
 				mant_a = -mant_a;
+				$display("arg A was negative\nchng from %b to %b\n", -mant_a, mant_a);
 			end
 			if (sign_b) begin
 				mant_b = -mant_b;
+				$display("arg B was negative\n");
 			end
 			
 			// 3.2 compare exponents
@@ -162,19 +164,19 @@ always @(*) begin
 		STATE_2: begin
 			ediff  = exp_a - exp_b;
 			exp_r  = exp_a;
-			mant_b = mant_b >> ediff;
+			mant_b = mant_b >>> ediff; // arithmetic shift to retain MSB
 			NextState = STATE_4;
 		end
 		STATE_3: begin
 			ediff 	= exp_b - exp_a;
 			exp_r 	= exp_b;
-			mant_a 	= mant_a >> ediff;
+			mant_a = mant_a >>> ediff;
 			NextState = STATE_4;
 		end
 		STATE_4: begin
 			// 3.3 Compute Addition
 			mant_r = {mant_a[24] ,mant_a} + {mant_b[24] ,mant_b};
-			$display("mant_a = %b, mant_b = %b", mant_a , mant_b);
+			$display("mant_a = %b, mant_b = %b\nmant_r = %b\n", mant_a , mant_b, mant_r);
 			// 3.4 Sign of the result
 			if (mant_r[25]) begin
 				// MSB indicates sign
