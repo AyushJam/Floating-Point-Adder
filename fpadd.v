@@ -91,7 +91,6 @@ always @(*) begin
 			else if (start) begin
 				// 1. Start parsing input data
 				//$display ("a = %d, b = %d\n", a, b);
-				$display ("a = %b, b = %b", a, b);
 				done 	= 	0;
 				sum  	= 	32'b0;
 				sign_a 	= 	a[31];
@@ -126,7 +125,7 @@ always @(*) begin
 				end
 				else begin
 					// 3. actual non-exceptional computation
-					$display ("No special case.");
+					// $display ("No special case.");
 					NextState = STATE_1;
 				end
 			end
@@ -139,24 +138,24 @@ always @(*) begin
 			// adjust mantissa sign, one bit used for sign extension
 			if (sign_a) begin
 				mant_a = -mant_a;
-				$display("arg A was negative\nchng from %b to %b\n", -mant_a, mant_a);
+				// $display("arg A was negative\nchng from %b to %b\n", -mant_a, mant_a);
 			end
 			if (sign_b) begin
 				mant_b = -mant_b;
-				$display("arg B was negative\n");
+				// $display("arg B was negative\n");
 			end
 			
 			// 3.2 compare exponents
 			if (exp_a > exp_b) begin
-				$display ("A had a bigger exponent.");
+				// $display ("A had a bigger exponent.");
 				NextState = STATE_2;	
 			end
 			else if (exp_a < exp_b) begin
-				$display ("B had a bigger exponent.n");
+				// $display ("B had a bigger exponent.n");
 				NextState = STATE_3;
 			end
 			else begin // they are equal
-				$display ("Equal exponents.");
+				// $display ("Equal exponents.");
 				exp_r = exp_a;
 				NextState = STATE_4;
 			end
@@ -176,18 +175,18 @@ always @(*) begin
 		STATE_4: begin
 			// 3.3 Compute Addition
 			mant_r = {mant_a[24] ,mant_a} + {mant_b[24] ,mant_b};
-			$display("mant_a = %b, mant_b = %b\nmant_r = %b\n", mant_a , mant_b, mant_r);
+			// $display("mant_a = %b, mant_b = %b\nmant_r = %b\n", mant_a , mant_b, mant_r);
 			// 3.4 Sign of the result
 			if (mant_r[25]) begin
 				// MSB indicates sign
 				// negative
-				$display("result negative.");
+				// $display("result negative.");
 				sign_r = 1;
 				mant_r = -mant_r;
 			end
 			else begin
 				// postitive
-				$display("result positive.");
+				// $display("result positive.");
 				sign_r = 0;
 			end
 			NextState = STATE_5;
@@ -205,12 +204,12 @@ always @(*) begin
 			else if ((!b24) && (b23)) begin
 				// 3.5.2 already normalized 
 				// no need to normalize
-				$display("no need to normalize");
+				// $display("no need to normalize");
 				NextState = STATE_6;
 			end
 			else if (b24) begin
 				// 3.5.3 Overflow - renormalize
-				$display("normalize for overflow\n");
+				// $display("normalize for overflow\n");
 				mant_r = {1'b0, mant_r[25:1]};
 				exp_r  = exp_r + 1'b1;
 				NextState = STATE_6;
@@ -219,13 +218,13 @@ always @(*) begin
 				// 3.5.4 Search for leading one
 				if(b23) begin
 					// normalized
-					$display("normalized for small delta\n");
+					// $display("normalized for small delta\n");
 					NextState = STATE_6;
 				end
 				else begin 
 					// keep looping until normalized
 				
-					$display("normalize for small delta.");
+					// $display("normalize for small delta.");
 					case (1)
 						mant_r[22]: begin one_index = 22; end
 						mant_r[21]: begin one_index = 21; end
@@ -252,7 +251,7 @@ always @(*) begin
 						mant_r[0]: begin one_index = 0; end
 
 					endcase
-					$display("one_index = %b", one_index);
+					// $display("one_index = %b", one_index);
 					mant_r = mant_r << (23 - one_index);
 					exp_r  =  exp_r - (23 - one_index);
 					NextState = STATE_6;
@@ -262,7 +261,7 @@ always @(*) begin
 		end
 		STATE_6: begin
 			// 4. Generate output
-			$display("sign = %b, exp = %b, mant = %b\n", sign_r, exp_r, mant_r);
+			// $display("sign = %b, exp = %b, mant = %b\n", sign_r, exp_r, mant_r);
 			sum	= {sign_r, exp_r, mant_r[22:0]};
 			done	= 1'b1;
 			NextState = STATE_Initial;
