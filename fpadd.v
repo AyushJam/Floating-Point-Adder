@@ -64,10 +64,10 @@ reg [2:0] NextState;
 
 // Synchronous State Transition
 always @(posedge clk) begin
-	if (reset) CurrentState <= STATE_Initial;
+	if (reset || start) CurrentState <= STATE_Initial;
 	else CurrentState <= NextState;
 end
-// Important! Will have to press reset to go to start state.
+// Important! Will have to press reset/start to go to start state.
 
 
 // Conditional State Transition
@@ -77,7 +77,7 @@ always @(*) begin
 	
 	case (CurrentState)
 		STATE_Initial: begin
-			if (reset) begin
+			if (reset || start) begin
 				done 	= 	0;
 				sum  	= 	32'b0;
 				sign_a 	= 	31'b0;
@@ -88,7 +88,7 @@ always @(*) begin
 				mant_b 	= 	25'b0;
 				NextState  = STATE_Initial;
 			end
-			else if (start) begin
+			else begin
 				// 1. Start parsing input data
 				//$display ("a = %d, b = %d\n", a, b);
 				done 	= 	0;
@@ -129,7 +129,6 @@ always @(*) begin
 					NextState = STATE_1;
 				end
 			end
-			else NextState = STATE_Initial;
 		end
 		STATE_1: begin
 			mant_a 	= 	{2'b01, a[22:0]};   // add 1 to make 1.xx
@@ -272,3 +271,4 @@ always @(*) begin
 	endcase				
 end	
 endmodule
+
